@@ -14,11 +14,18 @@ import { useSelector, shallowEqual } from 'react-redux';
 import DateFormat from '@redhat-cloud-services/frontend-components/DateFormat';
 import { distributionMapper } from './constants';
 
+
 const ImageDetailTab = () => {
   const { data } = useSelector(
     ({ imageDetailReducer }) => ({ data: imageDetailReducer?.data || null }),
     shallowEqual
   );
+
+  const { imageSetData } = useSelector(
+    ({ imageSetDetailReducer }) => ({ imageSetData: imageSetDetailReducer?.data || null }),
+    shallowEqual
+  );
+
 
   const dateFormat = () => <DateFormat date={data['CreatedAt']} />;
   const labelsToValueMapperLeftTop = {
@@ -26,12 +33,12 @@ const ImageDetailTab = () => {
     Version: 'Version',
     Created: () => dateFormat(),
     Release: () => distributionMapper[data['Distribution']],
-    Size: '',
-    Description: '',
+    'Size': '2.2g',
+    Description: 'Description',
   };
 
   const labelsToValueMapperLeftBottom = {
-    Username: 'andarberkwine',
+    'Username': 'Andarberkwine',
     'SSH Key': 'SSH-RSA asnauidnsdfoigdfgntohi hnoihtoirhrdngdion',
   };
 
@@ -76,7 +83,7 @@ const ImageDetailTab = () => {
           </TextList>
           <Text component={TextVariants.h3}>User Information </Text>
           <TextList component={TextListVariants.dl}>
-            {data
+            {imageSetData
               ? Object.entries(labelsToValueMapperLeftBottom).map(
                   ([label, value]) => {
                     return (
