@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   TextContent,
   TextList,
@@ -9,13 +9,19 @@ import {
   TextVariants,
   Flex,
   FlexItem,
+  Modal,
+  Button
 } from '@patternfly/react-core';
 import { useSelector, shallowEqual } from 'react-redux';
 import DateFormat from '@redhat-cloud-services/frontend-components/DateFormat';
 import { distributionMapper } from './constants';
+import ImageSetPackages from './ImageSetPackges';
+import ImagePackagesTab from './ImagePackagesTab';
+
 
 
 const ImageDetailTab = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const { data } = useSelector(
     ({ imageDetailReducer }) => ({ data: imageDetailReducer?.data || null }),
     shallowEqual
@@ -42,8 +48,13 @@ const ImageDetailTab = () => {
     'SSH Key': 'SSH-RSA asnauidnsdfoigdfgntohi hnoihtoirhrdngdion',
   };
 
+  const showModal = ()=>{ 
+    setIsModalOpen(!isModalOpen)
+    console.log(isModalOpen)
+  }
+
   const labelsToValueMapperRightTop = {
-    'Total Additional Packages': '8',
+    'Total Additional Packages': ()=> <Button variant="link" isInline onClick={showModal}>8</Button>,
     'Total Packages': '2456',
   };
 
@@ -59,6 +70,7 @@ const ImageDetailTab = () => {
   }
 
   return (
+    <React.Fragment>
     <TextContent className="pf-u-ml-lg pf-u-mt-md">
       <Flex>
         <FlexItem flex={{ default: 'flex_1' }}>
@@ -143,6 +155,10 @@ const ImageDetailTab = () => {
         </FlexItem>
       </Flex>
     </TextContent>
+    <Modal  width={'50%'} isOpen={isModalOpen} onClose={showModal}>
+      <ImagePackagesTab />
+    </Modal>
+    </React.Fragment>
   );
 };
 
