@@ -15,8 +15,8 @@ import {
 import { useSelector, shallowEqual } from 'react-redux';
 import DateFormat from '@redhat-cloud-services/frontend-components/DateFormat';
 import { distributionMapper } from './constants';
-import ImageSetPackages from './ImageSetPackges';
-import ImagePackagesTab from './ImagePackagesTab';
+import ImageSetPackages from './ImageSetPackages';
+
 
 
 
@@ -155,8 +155,8 @@ const ImageDetailTab = () => {
         </FlexItem>
       </Flex>
     </TextContent>
-    <Modal  width={'50%'} isOpen={isModalOpen} onClose={showModal}>
-      <ImagePackagesTab />
+    <Modal title='Changes from previous version' width={'50%'} isOpen={isModalOpen} onClose={showModal}>
+      <ImageSetPackages />
     </Modal>
     </React.Fragment>
   );
